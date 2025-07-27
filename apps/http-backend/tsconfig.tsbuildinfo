@@ -1,1 +1,1 @@
-{"root":["./scr/index.ts","./scr/middelware.ts","./scr/routes/v1/auth.ts"],"version":"5.8.3"}
+{"root":["./scr/index.ts","./scr/middelware.ts","./scr/api/v1/auth.ts"],"version":"5.8.3"}
