@@ -2,7 +2,7 @@ import "dotenv/config";
 import { Router } from "express";
 
 import jwt from "jsonwebtoken";
-import { middleware } from "../../middelware";
+import { middleware } from "../../middelware/middelware";
 import { signinSchema, signupSchema } from "@repo/common/types";
 
 import { prisma } from "@repo/db/client";

@@ -16,6 +16,6 @@ export const signinSchema = z.object({
 
 
 export const roomSchema = z.object({
-    roomid:z.string()
+    roomid:z.string().min(1, "cannot be empty")
 })
 
