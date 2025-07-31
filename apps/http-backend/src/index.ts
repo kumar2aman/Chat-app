@@ -5,7 +5,13 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/routes/v1", router);
+
+
+app.use("/api/v1", router);
+
+app.post("/", (req, res)=>{
+  res.json({message:"hello world"})
+})
 
 app.listen(3001, () => {
   console.log("Server listening on port 3001");

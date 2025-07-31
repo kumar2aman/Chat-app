@@ -1,5 +1,5 @@
-import "dotenv/config";
-import e, { NextFunction, Request, Response } from "express";
+import "dotenv/config"
+import  { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export const middleware = (req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +23,7 @@ export const middleware = (req: Request, res: Response, next: NextFunction) => {
       return res.json({ message: "unable to verify user" });
     }
   } catch (error) {
-    console.log(e);
-    return res.json({ message: e });
+    console.log(error);
+    return res.json({ message: error });
   }
 };
