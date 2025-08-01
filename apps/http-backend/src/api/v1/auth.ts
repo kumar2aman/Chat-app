@@ -7,11 +7,11 @@ import { signinSchema, signupSchema } from "@repo/common/types";
 
 import { prisma } from "@repo/db/client";
 
-const router: Router = Router();
+const autRouter: Router = Router();
 
 
 
-router.post("/signup", async (req, res) => {
+autRouter.post("/signup", async (req, res) => {
   const parseData = signupSchema.safeParse(req.body);
 
   //Db call
@@ -37,7 +37,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/signin", async (req, res) => {
+autRouter.post("/signin", async (req, res) => {
   const parseData = signinSchema.safeParse(req.body);
 
   console.log("your entered");
@@ -70,6 +70,7 @@ router.post("/signin", async (req, res) => {
 
     const userId = userData?.id;
 
+
     const token = jwt.sign({ userId }, process.env.JWT_SECRET as string);
 
     res.json({ message: token });
@@ -78,4 +79,4 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-export { router };
+export { autRouter };

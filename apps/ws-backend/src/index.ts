@@ -1,45 +1,37 @@
+import "dotenv/config";
 import { WebSocketServer } from "ws";
-import  jwt  from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
+const wss = new WebSocketServer({ port: 8080 });
 
-const wss = new WebSocketServer({port: 8080})
+function checkUser(token: string): string | null {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 
+  console.log("decoded is ", decoded);
 
-
-function checkUser(token:string):string | null {
-
-    const decoded  = jwt.verify(token, secret as string )
-
-
-  if(typeof decoded == "string"){
-    return null
+  if (typeof decoded == "string") {
+    return null;
   }
 
-  if(!decoded || !decoded.userId){
-    return null
+  if (!decoded || !decoded.userId) {
+    return null;
   }
 
-  return decoded.userId
-
-
+  return decoded.userId;
 }
 
+wss.on("connection", (ws, request) => {
+  const authHeader = request.headers.authorization;
 
-wss.on("connection", (ws,request )=>{
+  if (!authHeader || authHeader.startsWith("Bearer")) {
+    wss.close();
+  }
 
-    const  authHeader = request.headers.authorization
+  const token = authHeader?.split(" ")[1];
 
-     if(!authHeader || authHeader.startsWith("Bearer")){
-        wss.close()
-        
-     }
+  const userId = checkUser(token as string); // TODO: fix this error
 
-     const token = authHeader?.split(" ")[1];
-
-
-     const userId = checkUser(token as string) // TODO: fix this error
-
-    ws.on("message", (message)=>{
-        ws.send("pong")
-    })
-})
+  ws.on("message", (message) => {
+    ws.send("pong");
+  });
+});

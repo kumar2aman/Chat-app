@@ -3,11 +3,14 @@ import { middleware } from "../../middelware/middelware";
 import { roomSchema } from "@repo/common/types";
 import { prisma } from "@repo/db/client";
 
-const router: Router = Router();
+const chatRouter: Router = Router();
 
-router.post("/chat", middleware, async (req, res) => {
+chatRouter.post("/chat", middleware, async (req, res) => {
   
     const parseData = roomSchema.safeParse(req.body);
+
+      console.log("parsseDATa is ",parseData)
+    
 
   if (!parseData.success) {
     res.status(405).json({
@@ -15,8 +18,11 @@ router.post("/chat", middleware, async (req, res) => {
     });
   }
 
+
   //@ts-ignore TODO:fix typescript error you can use global types..
   const userId = req.userId;
+
+  console.log("userid is", userId)
 
   try {
     const room = await prisma.room.create({
@@ -25,9 +31,16 @@ router.post("/chat", middleware, async (req, res) => {
         adminId: userId,
       },
     });
+
+    res.json({
+      message: "room created"
+    })
   } catch (error) {
     res.status(405).json({
       message: "cannot create room ",
     });
   }
 });
+
+
+export {chatRouter};

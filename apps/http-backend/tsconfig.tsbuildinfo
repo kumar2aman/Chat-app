@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/api/v1/auth.ts","./src/api/v1/chat.ts","./src/middelware/middelware.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/api/v1/auth.ts","./src/api/v1/chat.ts","./src/api/v1/index.ts","./src/middelware/middelware.ts"],"version":"5.8.3"}
